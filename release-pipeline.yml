@@ -39,7 +39,7 @@ stages:
   - deployment: DeployToStage
     pool:
       vmImage: windows-latest
-    environment: 'Stage'
+    environment: 'Dev'
     strategy:
       runOnce:
         deploy:
@@ -63,7 +63,7 @@ stages:
   - deployment: DeployToProd
     pool:
       vmImage: windows-latest
-    environment: 'Prod'
+    environment: 'Dev'
     strategy:
       runOnce:
         deploy:

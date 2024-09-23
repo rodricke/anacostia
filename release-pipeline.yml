@@ -17,7 +17,7 @@ stages:
   jobs:
   - deployment: DeployToDev
     pool:
-      name: 'MySelfAgent'
+      vmImage: windows-latest
     environment: 'Dev'
     strategy:
       runOnce:
@@ -41,7 +41,7 @@ stages:
   jobs:
   - deployment: DeployToStage
     pool:
-      name: 'MySelfAgent'
+      vmImage: windows-latest
     environment: 'Stage'
     strategy:
       runOnce:
@@ -65,7 +65,7 @@ stages:
   jobs:
   - deployment: DeployToProd
     pool:
-      name: 'MySelfAgent'
+      vmImage: windows-latest
     environment: 'Prod'
     strategy:
       runOnce:
@@ -89,7 +89,7 @@ stages:
   jobs:
   - job: BuildAndDeploy
     pool:
-      name: 'MySelfAgent'
+      vmImage: windows-latest
     steps:
     - task: PowerShell@2
       inputs:

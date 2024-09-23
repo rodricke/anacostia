@@ -9,9 +9,6 @@ resources:
         include:
         - main
 
-variables:
-  - group: release-variables
-
 stages:
 - stage: Dev
   jobs:

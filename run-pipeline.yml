@@ -1,0 +1,43 @@
+parameters:
+- name: environment
+  type: string
+  default: 'Dev'
+  values:
+  - Dev
+  - Stage
+  - Prod
+  - Sandbox
+
+trigger: none
+
+pool:
+  name: 'MySelfAgent'
+
+variables:
+  ${{ if eq(parameters.environment, 'Dev') }}:
+    artifactName: 'DevArtifact'
+  ${{ if eq(parameters.environment, 'Stage') }}:
+    artifactName: 'StageArtifact'
+  ${{ if eq(parameters.environment, 'Prod') }}:
+    artifactName: 'ProdArtifact'
+  ${{ if eq(parameters.environment, 'Sandbox') }}:
+    artifactName: 'drop'
+
+steps:
+- task: DownloadPipelineArtifact@2
+  inputs:
+    source: 'specific'
+    project: '$(System.TeamProjectId)'
+    pipeline: 'ReleasePipeline'
+    runVersion: 'latest'
+    artifact: '$(artifactName)'
+    path: '$(Pipeline.Workspace)/$(artifactName)'
+  displayName: 'Download ${{ parameters.environment }} Artifact'
+
+- script: |
+    set PATH=$(Agent.ToolsDirectory)/dotnet;%PATH%
+    dotnet --version
+    echo "Running Hello World from ${{ parameters.environment }} environment"
+    set RELEASE_ENVIRONMENTNAME=${{ parameters.environment }}
+    dotnet $(Pipeline.Workspace)/$(artifactName)/HelloWorld.dll
+  displayName: 'Run Hello World from ${{ parameters.environment }}'

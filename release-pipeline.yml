@@ -33,7 +33,11 @@ stages:
             displayName: 'Download Latest Build Artifact'
           - publish: $(Pipeline.Workspace)/HelloWorldBuild/drop
             artifact: DevArtifact
-
+          - script: |
+              set PATH=$(Agent.ToolsDirectory)/dotnet;%PATH%
+              dotnet --version
+              dotnet $(Pipeline.Workspace)/HelloWorldBuild/drop/HelloWorld.dll
+            displayName: 'Run Hello World from  parameters.environment'
 - stage: Stage
   jobs:
   - deployment: DeployToStage

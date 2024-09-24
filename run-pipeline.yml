@@ -31,9 +31,9 @@ steps:
     pipeline: 'ReleasePipeline'
     artifact: '$(artifactName)'
     path: '$(Pipeline.Workspace)/$(artifactName)'
-    runVersion: 'current'
+    runVersion: 'latest'
   displayName: 'Download ${{ parameters.environment }} Artifact'
-#  runVersion: 'latest'
+
 - script: |
     set PATH=$(Agent.ToolsDirectory)/dotnet;%PATH%
     dotnet --version

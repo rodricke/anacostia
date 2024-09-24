@@ -39,7 +39,7 @@ stages:
   - deployment: DeployToStage
     pool:
       vmImage: windows-latest
-    environment: 'Stage'
+    environment: 'Dev'
     strategy:
       runOnce:
         deploy:

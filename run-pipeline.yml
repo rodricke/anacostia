@@ -31,6 +31,7 @@ steps:
     pipeline: 'ReleasePipeline'
     artifact: '$(artifactName)'
     path: '$(Pipeline.Workspace)/$(artifactName)'
+    runVersion: 'current'
   displayName: 'Download ${{ parameters.environment }} Artifact'
 #  runVersion: 'latest'
 - script: |

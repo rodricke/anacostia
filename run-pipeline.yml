@@ -29,9 +29,9 @@ steps:
     source: 'specific'
     project: '$(System.TeamProjectId)'
     pipeline: 'ReleasePipeline'
-    runVersion: 'latest'
     artifact: '$(artifactName)'
     path: '$(Pipeline.Workspace)/$(artifactName)'
+    runVersion: 'latest'
   displayName: 'Download ${{ parameters.environment }} Artifact'
 
 - script: |

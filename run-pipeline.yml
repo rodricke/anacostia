@@ -32,6 +32,7 @@ steps:
     artifact: '$(artifactName)'
     path: '$(Pipeline.Workspace)/$(artifactName)'
     runVersion: 'latest'
+    allowPartiallySucceededBuilds: true
   displayName: 'Download ${{ parameters.environment }} Artifact'
 
 - script: |

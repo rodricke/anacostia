@@ -14,7 +14,7 @@ stages:
   jobs:
   - deployment: DeployToDev
     pool:
-      vmImage: windows-latest
+      vmImage: 'windows-latest'
     environment: 'Dev'
     strategy:
       runOnce:
@@ -33,17 +33,14 @@ stages:
             displayName: 'Download Latest Build Artifact'
           - publish: $(Pipeline.Workspace)/HelloWorldBuild/drop
             artifact: DevArtifact
-          - script: |
-              set PATH=$(Agent.ToolsDirectory)/dotnet;%PATH%
-              dotnet --version
-              dotnet $(Pipeline.Workspace)/HelloWorldBuild/drop/HelloWorld.dll
-            displayName: 'Run Hello World from  parameters.environment'          
-     
+          - download: current
+            artifact: DevArtifact
+
 - stage: Stage
   jobs:
   - deployment: DeployToStage
     pool:
-      vmImage: windows-latest
+      vmImage: 'windows-latest'
     environment: 'Stage'
     strategy:
       runOnce:
@@ -62,17 +59,14 @@ stages:
             displayName: 'Download Dev Artifact'
           - publish: $(Pipeline.Workspace)/DevArtifact
             artifact: StageArtifact
-          - script: |
-              set PATH=$(Agent.ToolsDirectory)/dotnet;%PATH%
-              dotnet --version
-              dotnet $(Pipeline.Workspace)/DevArtifact/HelloWorld.dll
-            displayName: 'Run Hello World from  parameters.environment'
+          - download: current
+            artifact: StageArtifact
 
 - stage: Prod
   jobs:
   - deployment: DeployToProd
     pool:
-      vmImage: windows-latest
+      vmImage: 'windows-latest'
     environment: 'Prod'
     strategy:
       runOnce:
@@ -91,12 +85,14 @@ stages:
             displayName: 'Download Stage Artifact'
           - publish: $(Pipeline.Workspace)/StageArtifact
             artifact: ProdArtifact
+          - download: current
+            artifact: ProdArtifact
 
 - stage: Sandbox
   jobs:
   - job: BuildAndDeploy
     pool:
-      vmImage: windows-latest
+      vmImage: 'windows-latest'
     steps:
     - task: PowerShell@2
       inputs:

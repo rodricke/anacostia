@@ -9,13 +9,13 @@ resources:
         include:
         - main
 
+#     environment: 'Dev'
 stages:
 - stage: Dev
   jobs:
   - deployment: DeployToDev
     pool:
       vmImage: windows-latest
-    environment: 'Dev'
     strategy:
       runOnce:
         deploy:

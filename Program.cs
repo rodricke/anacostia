@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        string version = "2.0.1";
+        string version = "7.0.1";
         string environment = Environment.GetEnvironmentVariable("RELEASE_ENVIRONMENTNAME") ?? "Unknown";
         Console.WriteLine($"Hello World version {version} from {environment} environment");
     }

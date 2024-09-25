@@ -9,13 +9,13 @@ resources:
         include:
         - main
 
-#     environment: 'Dev'
 stages:
 - stage: Dev
   jobs:
   - deployment: DeployToDev
     pool:
       vmImage: windows-latest
+    environment: 'Dev'
     strategy:
       runOnce:
         deploy:
@@ -38,9 +38,7 @@ stages:
               dotnet --version
               dotnet $(Pipeline.Workspace)/HelloWorldBuild/drop/HelloWorld.dll
             displayName: 'Run Hello World from  parameters.environment'          
-
-
-            
+     
 - stage: Stage
   jobs:
   - deployment: DeployToStage
@@ -69,6 +67,7 @@ stages:
               dotnet --version
               dotnet $(Pipeline.Workspace)/DevArtifact/HelloWorld.dll
             displayName: 'Run Hello World from  parameters.environment'
+
 - stage: Prod
   jobs:
   - deployment: DeployToProd
